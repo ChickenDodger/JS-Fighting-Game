@@ -1,7 +1,10 @@
 # Javascript 2D Fighter Game
 
-## Tech Stack
+## 🚀 Tech Stack
 * Javascript
 * HTML/CSS
 
-## Acknowledgements 
+## ✨ Features
+
+## 🙌 Acknowledgements 
+* Built following Amir Shahbabaee's Udemy course, thanks Amir!
