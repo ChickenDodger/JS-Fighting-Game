@@ -14,10 +14,16 @@ const player = {
   speed: { x: 0, y: 0 },
 };
 
+// function to check the player is on the ground and can only jump then
+
+const isOnGround = (fighter) => {
+  return fighter.position.y + fighter.height >= ground;
+};
+
 // adding jump
 window.addEventListener("keydown", (e) => {
-  if (e.key === "w") {
-    player.speed.y -= 10;
+  if (e.key === "w" && isOnGround(player)) {
+    player.speed.y -= 15;
   }
 });
 
