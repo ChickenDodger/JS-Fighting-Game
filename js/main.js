@@ -14,6 +14,13 @@ const player = {
   speed: { x: 0, y: 0 },
 };
 
+// adding jump
+window.addEventListener("keydown", (e) => {
+  if (e.key === "w") {
+    player.speed.y -= 10;
+  }
+});
+
 const animate = () => {
   window.requestAnimationFrame(animate);
   c.fillStyle = "black";
