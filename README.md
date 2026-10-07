@@ -6,5 +6,7 @@
 
 ## ✨ Features
 
+## 🕹️ How to play
+
 ## 🙌 Acknowledgements 
 * Built following Amir Shahbabaee's Udemy course, thanks Amir!
