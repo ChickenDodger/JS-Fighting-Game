@@ -14,34 +14,70 @@ const player = {
   speed: { x: 0, y: 0 },
 };
 
-// function to check the player is on the ground and can only jump then
-
-const isOnGround = (fighter) => {
+function isOnGround(fighter) {
   return fighter.position.y + fighter.height >= ground;
+}
+
+const keys = {
+  a: false,
+  d: false,
 };
 
-// adding jump
 window.addEventListener("keydown", (e) => {
-  if (e.key === "w" && isOnGround(player)) {
-    player.speed.y -= 15;
+  switch (e.key) {
+    case "w":
+      if (isOnGround(player)) {
+        player.speed.y -= 20;
+      }
+      break;
+
+    case "a":
+      keys.a = true;
+      break;
+
+    case "d":
+      keys.d = true;
+      break;
   }
 });
 
-const animate = () => {
+window.addEventListener("keyup", (e) => {
+  switch (e.key) {
+    case "a":
+      keys.a = false;
+      break;
+
+    case "d":
+      keys.d = false;
+      break;
+  }
+});
+
+function animate() {
   window.requestAnimationFrame(animate);
+
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
 
   c.fillStyle = "red";
   c.fillRect(player.position.x, player.position.y, player.width, player.height);
 
+  player.speed.x = 0;
+  if (keys.a) {
+    player.speed.x -= 4;
+  } else if (keys.d) {
+    player.speed.x += 4;
+  }
+  console.log(keys);
+
   player.speed.y += gravity;
   player.position.y += player.speed.y;
+  player.position.x += player.speed.x;
 
   if (player.position.y + player.speed.y + player.height > ground) {
     player.speed.y = 0;
     player.position.y = ground - player.height;
   }
-};
+}
 
 animate();
