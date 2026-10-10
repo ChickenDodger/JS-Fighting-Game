@@ -16,6 +16,7 @@ const skeleton = new Sprite({
   position: { x: 900, y: 200 },
   src: "../assets/img/skeleton.png",
   totalFrames: 8,
+  scale: 1.5,
 });
 
 const player = {
