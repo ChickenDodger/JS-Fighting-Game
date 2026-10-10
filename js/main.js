@@ -7,6 +7,18 @@ canvas.height = 576;
 const gravity = 0.7;
 const ground = canvas.height - 100;
 
+const background = new Sprite({
+  position: { x: 0, y: 0 },
+  src: "../assets/img/background.png",
+});
+
+const skeleton = new Sprite({
+  position: { x: 900, y: 200 },
+  src: "../assets/img/skeleton.png",
+  totalFrames: 8,
+  scale: 1.5,
+});
+
 const player = {
   position: { x: 100, y: 0 },
   width: 50,
@@ -56,8 +68,9 @@ window.addEventListener("keyup", (e) => {
 function animate() {
   window.requestAnimationFrame(animate);
 
-  c.fillStyle = "black";
-  c.fillRect(0, 0, canvas.width, canvas.height);
+  background.draw();
+  skeleton.draw();
+  skeleton.animateFrames();
 
   c.fillStyle = "red";
   c.fillRect(player.position.x, player.position.y, player.width, player.height);
