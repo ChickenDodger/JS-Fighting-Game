@@ -5,7 +5,7 @@ canvas.width = 1024;
 canvas.height = 576;
 
 const gravity = 0.7;
-const ground = canvas.height - 100;
+const ground = canvas.height - 96;
 
 const background = new Sprite({
   position: { x: 0, y: 0 },
@@ -19,16 +19,14 @@ const skeleton = new Sprite({
   scale: 1.5,
 });
 
-const player = {
+const player = new Fighter({
   position: { x: 100, y: 0 },
-  width: 50,
-  height: 150,
   speed: { x: 0, y: 0 },
-};
-
-function isOnGround(fighter) {
-  return fighter.position.y + fighter.height >= ground;
-}
+  src: "../assets/img/King/Idle.png",
+  totalFrames: 8,
+  scale: 2.5,
+  offset: { x: 210, y: 120 },
+});
 
 const keys = {
   a: false,
@@ -38,7 +36,7 @@ const keys = {
 window.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "w":
-      if (isOnGround(player)) {
+      if (player.isOnGround()) {
         player.speed.y -= 20;
       }
       break;
@@ -68,28 +66,18 @@ window.addEventListener("keyup", (e) => {
 function animate() {
   window.requestAnimationFrame(animate);
 
-  background.draw();
-  skeleton.draw();
-  skeleton.animateFrames();
+  background.update();
+  skeleton.update();
 
   c.fillStyle = "red";
   c.fillRect(player.position.x, player.position.y, player.width, player.height);
+  player.update();
 
   player.speed.x = 0;
   if (keys.a) {
     player.speed.x -= 4;
   } else if (keys.d) {
     player.speed.x += 4;
-  }
-  console.log(keys);
-
-  player.speed.y += gravity;
-  player.position.y += player.speed.y;
-  player.position.x += player.speed.x;
-
-  if (player.position.y + player.speed.y + player.height > ground) {
-    player.speed.y = 0;
-    player.position.y = ground - player.height;
   }
 }
 
