@@ -7,6 +7,18 @@
     <title>2D-Beat-Em-Up</title>
   </head>
   <body>
+    <div id="hud">
+      <div class="health-bar-bg" id="playerHealthFill">
+        <div class="health-bar-fill"></div>
+      </div>
+      <span class="fighter-name">P1</span>
+      <span id="timer">30</span>
+      <span class="fighter-name">P2</span>
+
+      <div class="health-bar-bg" id="enemyHealthFill">
+        <div class="health-bar-fill"></div>
+      </div>
+    </div>
     <canvas id="gameCanvas"></canvas>
 
     <script src="./js/sprite.js"></script>
