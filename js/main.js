@@ -25,15 +25,27 @@ const player = new Fighter({
   src: "../assets/img/King/Idle.png",
   totalFrames: 8,
   scale: 2.5,
-  offset: { x: 210, y: 120 },
+  offset: { x: 215, y: 120 },
+});
+
+const enemy = new Fighter({
+  position: { x: canvas.width - 200, y: 0 },
+  speed: { x: 0, y: 0 },
+  src: "../assets/img/Huntress/Idle.png",
+  totalFrames: 8,
+  scale: 2.5,
+  offset: { x: 215, y: 100 },
 });
 
 const keys = {
   a: false,
   d: false,
+  left: false,
+  right: false,
 };
 
 window.addEventListener("keydown", (e) => {
+  // player 1 WASD
   switch (e.key) {
     case "w":
       if (player.isOnGround()) {
@@ -49,6 +61,23 @@ window.addEventListener("keydown", (e) => {
       keys.d = true;
       break;
   }
+
+  // enemy arrow keys
+  switch (e.key) {
+    case "ArrowUp":
+      if (enemy.isOnGround()) {
+        enemy.speed.y -= 20;
+      }
+      break;
+
+    case "ArrowLeft":
+      keys.left = true;
+      break;
+
+    case "ArrowRight":
+      keys.right = true;
+      break;
+  }
 });
 
 window.addEventListener("keyup", (e) => {
@@ -59,6 +88,17 @@ window.addEventListener("keyup", (e) => {
 
     case "d":
       keys.d = false;
+      break;
+  }
+
+  // enemy
+  switch (e.key) {
+    case "ArrowLeft":
+      keys.left = false;
+      break;
+
+    case "ArrowRight":
+      keys.right = false;
       break;
   }
 });
@@ -72,12 +112,20 @@ function animate() {
   c.fillStyle = "red";
   c.fillRect(player.position.x, player.position.y, player.width, player.height);
   player.update();
+  enemy.update();
 
   player.speed.x = 0;
   if (keys.a) {
     player.speed.x -= 4;
   } else if (keys.d) {
     player.speed.x += 4;
+  }
+
+  enemy.speed.x = 0;
+  if (keys.left) {
+    enemy.speed.x -= 4;
+  } else if (keys.right) {
+    enemy.speed.x += 4;
   }
 }
 
