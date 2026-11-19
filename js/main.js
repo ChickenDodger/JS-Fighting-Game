@@ -26,6 +26,11 @@ const player = new Fighter({
   totalFrames: 8,
   scale: 2.5,
   offset: { x: 215, y: 120 },
+  attackBox: {
+    width: 100,
+    height: 50,
+    offset: { x: 100, y: 50 },
+  },
 });
 
 const enemy = new Fighter({
@@ -35,6 +40,11 @@ const enemy = new Fighter({
   totalFrames: 8,
   scale: 2.5,
   offset: { x: 215, y: 100 },
+  attackBox: {
+    width: 100,
+    height: 50,
+    offset: { x: -100, y: 50 },
+  },
 });
 
 const keys = {
@@ -60,6 +70,10 @@ window.addEventListener("keydown", (e) => {
     case "d":
       keys.d = true;
       break;
+
+    case " ":
+      player.attack();
+      break;
   }
 
   // enemy arrow keys
@@ -76,6 +90,10 @@ window.addEventListener("keydown", (e) => {
 
     case "ArrowRight":
       keys.right = true;
+      break;
+
+    case "ArrowDown":
+      enemy.attack();
       break;
   }
 });
@@ -126,6 +144,13 @@ function animate() {
     enemy.speed.x -= 4;
   } else if (keys.right) {
     enemy.speed.x += 4;
+  }
+
+  if (player.isAttacking && player.framesCurrent === 4) {
+    player.isAttacking = false;
+  }
+  if (enemy.isAttacking && enemy.framesCurrent === 4) {
+    enemy.isAttacking = false;
   }
 }
 
