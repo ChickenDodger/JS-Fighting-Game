@@ -5,6 +5,7 @@ function Fighter({
   scale = 1,
   speed,
   offset,
+  sprites,
   attackBox = { offset: {}, width: 0, height: 0 },
 }) {
   Sprite.call(this, { position, src, totalFrames, scale, offset });
@@ -24,6 +25,14 @@ function Fighter({
       y: this.position.y, // defining the position here
     },
   };
+
+  this.sprites = sprites;
+  for (const key in this.sprites) {
+    // get the sprites object from the main and for each key - ie idle/run etc -
+    // create an image based off the link passed in sprites inside main
+    this.sprites[key].image = new Image();
+    this.sprites[key].image.src = this.sprites[key].src;
+  }
 }
 // this is just another way for this fighter object to extend the sprite class
 Fighter.prototype = Object.create(Sprite.prototype);

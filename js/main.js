@@ -31,6 +31,10 @@ const player = new Fighter({
     height: 50,
     offset: { x: 100, y: 50 },
   },
+  sprites: {
+    idle: { src: "../assets/img/King/Idle.png", totalFrames: 8 },
+    run: { src: "../assets/img/King/Run.png", totalFrames: 8 },
+  },
 });
 
 const enemy = new Fighter({
@@ -44,6 +48,10 @@ const enemy = new Fighter({
     width: 100,
     height: 50,
     offset: { x: -100, y: 50 },
+  },
+  sprites: {
+    idle: { src: "../assets/img/Huntress/Idle.png", totalFrames: 8 },
+    run: { src: "../assets/img/Huntress/Run.png", totalFrames: 8 },
   },
 });
 
