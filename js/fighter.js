@@ -78,10 +78,22 @@ Fighter.prototype.attack = function () {
   this.switchSprite("attack");
 };
 
+Fighter.prototype.takeHit = function () {
+  this.switchSprite("takeHit");
+};
+
 Fighter.prototype.switchSprite = function (sprite) {
+  // attack guard
   if (
     this.image === this.sprites.attack.image &&
     this.framesCurrent < this.sprites.attack.totalFrames - 1
+  )
+    return;
+
+  // take hit guard
+  if (
+    this.image === this.sprites.takeHit.image &&
+    this.framesCurrent < this.sprites.takeHit.totalFrames - 1
   )
     return;
 
@@ -122,6 +134,14 @@ Fighter.prototype.switchSprite = function (sprite) {
       if (this.image !== this.sprites.attack.image) {
         this.image = this.sprites.attack.image;
         this.totalFrames = this.sprites.attack.totalFrames;
+        this.framesCurrent = 0;
+      }
+      break;
+
+    case "takeHit":
+      if (this.image !== this.sprites.takeHit.image) {
+        this.image = this.sprites.takeHit.image;
+        this.totalFrames = this.sprites.takeHit.totalFrames;
         this.framesCurrent = 0;
       }
       break;

@@ -37,6 +37,8 @@ const player = new Fighter({
     jump: { src: "../assets/img/King/Jump.png", totalFrames: 2 },
     fall: { src: "../assets/img/King/Fall.png", totalFrames: 2 },
     attack: { src: "../assets/img/King/Attack1.png", totalFrames: 4 },
+    takeHit: { src: "../assets/img/King/Take Hit.png", totalFrames: 4 },
+    death: { src: "../assets/img/King/Death.png", totalFrames: 6 },
   },
 });
 
@@ -58,6 +60,8 @@ const enemy = new Fighter({
     jump: { src: "../assets/img/Huntress/Jump.png", totalFrames: 2 },
     fall: { src: "../assets/img/Huntress/Fall.png", totalFrames: 2 },
     attack: { src: "../assets/img/Huntress/Attack1.png", totalFrames: 4 },
+    takeHit: { src: "../assets/img/Huntress/Take Hit.png", totalFrames: 3 },
+    death: { src: "../assets/img/Huntress/Death.png", totalFrames: 6 },
   },
 });
 
@@ -182,8 +186,17 @@ function animate() {
     enemy.switchSprite("fall");
   }
 
+  if (player.isAttacking && player.framesCurrent === 2) {
+    enemy.takeHit();
+    player.isAttacking = false;
+  }
   if (player.isAttacking && player.framesCurrent === 4) {
     player.isAttacking = false;
+  }
+
+  if (enemy.isAttacking && enemy.framesCurrent === 2) {
+    player.takeHit();
+    enemy.isAttacking = false;
   }
   if (enemy.isAttacking && enemy.framesCurrent === 4) {
     enemy.isAttacking = false;
