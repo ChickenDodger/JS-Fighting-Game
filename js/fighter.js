@@ -76,3 +76,23 @@ Fighter.prototype.isOnGround = function () {
 Fighter.prototype.attack = function () {
   this.isAttacking = true;
 };
+
+Fighter.prototype.switchSprite = function (sprite) {
+  switch (sprite) {
+    case "idle":
+      if (this.image !== this.sprites.idle.image) {
+        this.image = this.sprites.idle.image;
+        this.totalFrames = this.sprites.idle.totalFrames;
+        this.framesCurrent = 0;
+      }
+      break;
+
+    case "run":
+      if (this.image !== this.sprites.run.image) {
+        this.image = this.sprites.run.image;
+        this.totalFrames = this.sprites.run.totalFrames;
+        this.framesCurrent = 0;
+      }
+      break;
+  }
+};

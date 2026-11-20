@@ -143,15 +143,23 @@ function animate() {
   player.speed.x = 0;
   if (keys.a) {
     player.speed.x -= 4;
+    player.switchSprite("run"); // call switchSprite when moving left
   } else if (keys.d) {
-    player.speed.x += 4;
+    player.speed.x += 4; // call switchSprite when moving right
+    player.switchSprite("run");
+  } else {
+    player.switchSprite("idle"); // if neither, fallback to the idle sprite
   }
 
   enemy.speed.x = 0;
   if (keys.left) {
     enemy.speed.x -= 4;
+    enemy.switchSprite("run");
   } else if (keys.right) {
     enemy.speed.x += 4;
+    enemy.switchSprite("run");
+  } else {
+    enemy.switchSprite("idle");
   }
 
   if (player.isAttacking && player.framesCurrent === 4) {
