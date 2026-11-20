@@ -75,9 +75,16 @@ Fighter.prototype.isOnGround = function () {
 
 Fighter.prototype.attack = function () {
   this.isAttacking = true;
+  this.switchSprite("attack");
 };
 
 Fighter.prototype.switchSprite = function (sprite) {
+  if (
+    this.image === this.sprites.attack.image &&
+    this.framesCurrent < this.sprites.attack.totalFrames - 1
+  )
+    return;
+
   switch (sprite) {
     case "idle":
       if (this.image !== this.sprites.idle.image) {
@@ -107,6 +114,14 @@ Fighter.prototype.switchSprite = function (sprite) {
       if (this.image !== this.sprites.fall.image) {
         this.image = this.sprites.fall.image;
         this.totalFrames = this.sprites.fall.totalFrames;
+        this.framesCurrent = 0;
+      }
+      break;
+
+    case "attack":
+      if (this.image !== this.sprites.attack.image) {
+        this.image = this.sprites.attack.image;
+        this.totalFrames = this.sprites.attack.totalFrames;
         this.framesCurrent = 0;
       }
       break;

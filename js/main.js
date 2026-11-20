@@ -36,6 +36,7 @@ const player = new Fighter({
     run: { src: "../assets/img/King/Run.png", totalFrames: 8 },
     jump: { src: "../assets/img/King/Jump.png", totalFrames: 2 },
     fall: { src: "../assets/img/King/Fall.png", totalFrames: 2 },
+    attack: { src: "../assets/img/King/Attack1.png", totalFrames: 4 },
   },
 });
 
@@ -56,6 +57,7 @@ const enemy = new Fighter({
     run: { src: "../assets/img/Huntress/Run.png", totalFrames: 8 },
     jump: { src: "../assets/img/Huntress/Jump.png", totalFrames: 2 },
     fall: { src: "../assets/img/Huntress/Fall.png", totalFrames: 2 },
+    attack: { src: "../assets/img/Huntress/Attack1.png", totalFrames: 4 },
   },
 });
 
