@@ -34,6 +34,8 @@ const player = new Fighter({
   sprites: {
     idle: { src: "../assets/img/King/Idle.png", totalFrames: 8 },
     run: { src: "../assets/img/King/Run.png", totalFrames: 8 },
+    jump: { src: "../assets/img/King/Jump.png", totalFrames: 2 },
+    fall: { src: "../assets/img/King/Fall.png", totalFrames: 2 },
   },
 });
 
@@ -52,6 +54,8 @@ const enemy = new Fighter({
   sprites: {
     idle: { src: "../assets/img/Huntress/Idle.png", totalFrames: 8 },
     run: { src: "../assets/img/Huntress/Run.png", totalFrames: 8 },
+    jump: { src: "../assets/img/Huntress/Jump.png", totalFrames: 2 },
+    fall: { src: "../assets/img/Huntress/Fall.png", totalFrames: 2 },
   },
 });
 
@@ -140,6 +144,7 @@ function animate() {
   player.update();
   enemy.update();
 
+  // player
   player.speed.x = 0;
   if (keys.a) {
     player.speed.x -= 4;
@@ -151,6 +156,13 @@ function animate() {
     player.switchSprite("idle"); // if neither, fallback to the idle sprite
   }
 
+  if (player.speed.y < 0) {
+    player.switchSprite("jump");
+  } else if (player.speed.y > 0) {
+    player.switchSprite("fall");
+  }
+
+  // enemy
   enemy.speed.x = 0;
   if (keys.left) {
     enemy.speed.x -= 4;
@@ -160,6 +172,12 @@ function animate() {
     enemy.switchSprite("run");
   } else {
     enemy.switchSprite("idle");
+  }
+
+  if (enemy.speed.y < 0) {
+    enemy.switchSprite("jump");
+  } else if (enemy.speed.y > 0) {
+    enemy.switchSprite("fall");
   }
 
   if (player.isAttacking && player.framesCurrent === 4) {

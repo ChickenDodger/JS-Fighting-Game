@@ -61,7 +61,7 @@ Fighter.prototype.update = function () {
   this.position.x += this.speed.x;
 
   // gravity & ground collision
-  if (this.position.y + this.speed.y + this.height > ground) {
+  if (this.position.y + this.speed.y + this.height >= ground) {
     this.speed.y = 0;
     this.position.y = ground - this.height;
   } else {
@@ -91,6 +91,22 @@ Fighter.prototype.switchSprite = function (sprite) {
       if (this.image !== this.sprites.run.image) {
         this.image = this.sprites.run.image;
         this.totalFrames = this.sprites.run.totalFrames;
+        this.framesCurrent = 0;
+      }
+      break;
+
+    case "jump":
+      if (this.image !== this.sprites.jump.image) {
+        this.image = this.sprites.jump.image;
+        this.totalFrames = this.sprites.jump.totalFrames;
+        this.framesCurrent = 0;
+      }
+      break;
+
+    case "fall":
+      if (this.image !== this.sprites.fall.image) {
+        this.image = this.sprites.fall.image;
+        this.totalFrames = this.sprites.fall.totalFrames;
         this.framesCurrent = 0;
       }
       break;
