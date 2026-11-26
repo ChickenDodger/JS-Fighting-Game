@@ -61,7 +61,7 @@ const enemy = new Fighter({
     fall: { src: "../assets/img/Huntress/Fall.png", totalFrames: 2 },
     attack: { src: "../assets/img/Huntress/Attack1.png", totalFrames: 4 },
     takeHit: { src: "../assets/img/Huntress/Take Hit.png", totalFrames: 3 },
-    death: { src: "../assets/img/Huntress/Death.png", totalFrames: 6 },
+    death: { src: "../assets/img/Huntress/Death.png", totalFrames: 8 },
   },
 });
 
@@ -74,45 +74,49 @@ const keys = {
 
 window.addEventListener("keydown", (e) => {
   // player 1 WASD
-  switch (e.key) {
-    case "w":
-      if (player.isOnGround()) {
-        player.speed.y -= 20;
-      }
-      break;
+  if (!player.dead && player.health > 0) {
+    switch (e.key) {
+      case "w":
+        if (player.isOnGround()) {
+          player.speed.y -= 20;
+        }
+        break;
 
-    case "a":
-      keys.a = true;
-      break;
+      case "a":
+        keys.a = true;
+        break;
 
-    case "d":
-      keys.d = true;
-      break;
+      case "d":
+        keys.d = true;
+        break;
 
-    case " ":
-      player.attack();
-      break;
+      case " ":
+        player.attack();
+        break;
+    }
   }
 
   // enemy arrow keys
-  switch (e.key) {
-    case "ArrowUp":
-      if (enemy.isOnGround()) {
-        enemy.speed.y -= 20;
-      }
-      break;
+  if (!enemy.dead && enemy.health > 0) {
+    switch (e.key) {
+      case "ArrowUp":
+        if (enemy.isOnGround()) {
+          enemy.speed.y -= 20;
+        }
+        break;
 
-    case "ArrowLeft":
-      keys.left = true;
-      break;
+      case "ArrowLeft":
+        keys.left = true;
+        break;
 
-    case "ArrowRight":
-      keys.right = true;
-      break;
+      case "ArrowRight":
+        keys.right = true;
+        break;
 
-    case "ArrowDown":
-      enemy.attack();
-      break;
+      case "ArrowDown":
+        enemy.attack();
+        break;
+    }
   }
 });
 
@@ -144,9 +148,6 @@ function animate() {
 
   background.update();
   skeleton.update();
-
-  c.fillStyle = "red";
-  c.fillRect(player.position.x, player.position.y, player.width, player.height);
   player.update();
   enemy.update();
 

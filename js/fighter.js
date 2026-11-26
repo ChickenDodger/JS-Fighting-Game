@@ -42,7 +42,7 @@ Fighter.prototype.constructor = Fighter;
 
 Fighter.prototype.update = function () {
   this.draw();
-  this.animateFrames();
+  if (!this.dead) this.animateFrames();
 
   // using the position down here
   this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
@@ -71,8 +71,12 @@ Fighter.prototype.attack = function () {
 };
 
 Fighter.prototype.takeHit = function () {
-  this.switchSprite("takeHit");
   this.health -= 20;
+  if (this.health <= 0) {
+    this.switchSprite("death");
+  } else {
+    this.switchSprite("takeHit");
+  }
 };
 
 Fighter.prototype.switchSprite = function (sprite) {
@@ -89,6 +93,14 @@ Fighter.prototype.switchSprite = function (sprite) {
     this.framesCurrent < this.sprites.takeHit.totalFrames - 1
   )
     return;
+
+  // death guard
+  if (this.image === this.sprites.death.image) {
+    if (this.framesCurrent === this.sprites.death.totalFrames - 1) {
+      this.dead = true;
+    }
+    return;
+  }
 
   switch (sprite) {
     case "idle":
@@ -135,6 +147,14 @@ Fighter.prototype.switchSprite = function (sprite) {
       if (this.image !== this.sprites.takeHit.image) {
         this.image = this.sprites.takeHit.image;
         this.totalFrames = this.sprites.takeHit.totalFrames;
+        this.framesCurrent = 0;
+      }
+      break;
+
+    case "death":
+      if (this.image !== this.sprites.death.image) {
+        this.image = this.sprites.death.image;
+        this.totalFrames = this.sprites.death.totalFrames;
         this.framesCurrent = 0;
       }
       break;
