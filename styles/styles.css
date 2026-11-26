@@ -3,7 +3,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   background-color: #1a1a2e;
   display: flex;
@@ -12,7 +11,6 @@ body {
   justify-content: center;
   height: 100vh;
 }
-
 #gameCanvas {
   border: 2px solid #444;
 }
@@ -24,7 +22,6 @@ body {
   gap: 12px;
   align-items: center;
 }
-
 .health-bar-bg {
   flex: 1;
   height: 14px;
@@ -33,36 +30,34 @@ body {
   display: flex;
   overflow: hidden;
 }
-
 .health-bar-fill {
   height: 100%;
   border-radius: 4px;
   width: 30%;
   transition: width 0.15s;
 }
-
 #enemyHealthFill {
   justify-content: end;
 }
 
-#playerHealthFill {
+#playerHealthFill > div {
   background: #48d222;
   width: 100%;
 }
 
-#enemyHealthFill {
+#enemyHealthFill > div {
   background: #ea2929;
   width: 100%;
 }
 
 .fighter-name {
-  color: #fff;
+  color: white;
   font-family: sans-serif;
   font-size: 18px;
 }
 
 #timer {
-  color: #fff;
+  color: white;
   font-size: 24px;
   font-weight: bold;
   font-family: monospace;
