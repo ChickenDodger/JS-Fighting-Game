@@ -8,6 +8,8 @@ const gravity = 0.7;
 const ground = canvas.height - 96;
 
 let timer = 30;
+let isPaused = false;
+let countDownTimer;
 
 const background = new Sprite({
   position: { x: 0, y: 0 },
@@ -76,7 +78,7 @@ const keys = {
 
 window.addEventListener("keydown", (e) => {
   // player 1 WASD
-  if (!player.dead && player.health > 0) {
+  if (!isPaused && !player.dead && player.health > 0) {
     switch (e.key) {
       case "w":
         if (player.isOnGround()) {
@@ -99,7 +101,7 @@ window.addEventListener("keydown", (e) => {
   }
 
   // enemy arrow keys
-  if (!enemy.dead && enemy.health > 0) {
+  if (!isPaused && !enemy.dead && enemy.health > 0) {
     switch (e.key) {
       case "ArrowUp":
         if (enemy.isOnGround()) {
@@ -146,11 +148,13 @@ window.addEventListener("keyup", (e) => {
 });
 
 function startCountDown() {
-  let countDownTimer = setTimeout(startCountDown, 1000);
-  document.querySelector("#timer").innerHTML = timer;
+  countDownTimer = setTimeout(startCountDown, 1000);
+
   timer--;
+  document.querySelector("#timer").innerHTML = timer;
   if (timer <= 0) {
     clearTimeout(countDownTimer);
+    isPaused = true;
   }
 }
 
@@ -226,6 +230,10 @@ function animate() {
   }
   if (enemy.isAttacking && enemy.framesCurrent === 4) {
     enemy.isAttacking = false;
+  }
+  if (player.dead || enemy.dead) {
+    clearTimeout(countDownTimer);
+    isPaused = true;
   }
 }
 
