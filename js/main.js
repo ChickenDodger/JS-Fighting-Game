@@ -186,17 +186,31 @@ function animate() {
     enemy.switchSprite("fall");
   }
 
-  if (player.isAttacking && player.framesCurrent === 2) {
+  // animation and health damage on enemy from player
+  if (
+    player.isAttacking &&
+    player.framesCurrent === 2 &&
+    collide(player, enemy)
+  ) {
     enemy.takeHit();
     player.isAttacking = false;
+    document.querySelector("#enemyHealthFill > div").style.width =
+      Math.max(enemy.health, 0) + "%";
   }
   if (player.isAttacking && player.framesCurrent === 4) {
     player.isAttacking = false;
   }
 
-  if (enemy.isAttacking && enemy.framesCurrent === 2) {
+  // animation and health damage on player from enemy
+  if (
+    enemy.isAttacking &&
+    enemy.framesCurrent === 2 &&
+    collide(enemy, player)
+  ) {
     player.takeHit();
     enemy.isAttacking = false;
+    document.querySelector("#playerHealthFill > div").style.width =
+      Math.max(player.health, 0) + "%";
   }
   if (enemy.isAttacking && enemy.framesCurrent === 4) {
     enemy.isAttacking = false;

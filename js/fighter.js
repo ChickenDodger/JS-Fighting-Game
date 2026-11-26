@@ -27,6 +27,8 @@ function Fighter({
   };
 
   this.sprites = sprites;
+  this.health = 100; // defined health here
+
   for (const key in this.sprites) {
     // get the sprites object from the main and for each key - ie idle/run etc -
     // create an image based off the link passed in sprites inside main
@@ -45,16 +47,6 @@ Fighter.prototype.update = function () {
   // using the position down here
   this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
   this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
-
-  if (this.isAttacking) {
-    c.fillStyle = "green";
-    c.fillRect(
-      this.attackBox.position.x,
-      this.attackBox.position.y,
-      this.attackBox.width,
-      this.attackBox.height,
-    );
-  }
 
   // movement
   this.position.y += this.speed.y;
@@ -80,6 +72,7 @@ Fighter.prototype.attack = function () {
 
 Fighter.prototype.takeHit = function () {
   this.switchSprite("takeHit");
+  this.health -= 20;
 };
 
 Fighter.prototype.switchSprite = function (sprite) {
