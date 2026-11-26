@@ -7,6 +7,8 @@ canvas.height = 576;
 const gravity = 0.7;
 const ground = canvas.height - 96;
 
+let timer = 30;
+
 const background = new Sprite({
   position: { x: 0, y: 0 },
   src: "../assets/img/background.png",
@@ -143,6 +145,15 @@ window.addEventListener("keyup", (e) => {
   }
 });
 
+function startCountDown() {
+  let countDownTimer = setTimeout(startCountDown, 1000);
+  document.querySelector("#timer").innerHTML = timer;
+  timer--;
+  if (timer <= 0) {
+    clearTimeout(countDownTimer);
+  }
+}
+
 function animate() {
   window.requestAnimationFrame(animate);
 
@@ -218,4 +229,5 @@ function animate() {
   }
 }
 
+startCountDown();
 animate();
